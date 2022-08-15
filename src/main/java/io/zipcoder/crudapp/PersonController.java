@@ -23,12 +23,14 @@ public class PersonController {
     }
     @PostMapping
     public ResponseEntity<Person> createPerson(@Valid @RequestBody Person p){
+        personList.add(p);
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.CREATED);
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Person> getPerson(@PathVariable Long id){
         return new ResponseEntity<>(personRepository.findOne(id), HttpStatus.OK);
     }
+    @GetMapping("/people")
     public ResponseEntity<List<Person>> getPersonList(){
         return new ResponseEntity<>(personList, HttpStatus.OK);
     }
